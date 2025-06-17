@@ -39,7 +39,7 @@ async function getRandomBlock() {
 }
 
 async function logRollResult(characterName, block, diceResult, attribute){
-    console.log(`${characterName} 🎲 rolou um dado de ${block} ${diceResult}`);
+    console.log(`${characterName} 🎲 rolou um dado de ${block} ${diceResult} + ${attribute} = ${diceResult + attribute}`);
 }
 
 
@@ -50,9 +50,8 @@ async function playRaceEngine(character1, character2) {
         //sortear bloco
         let block = await getRandomBlock();
         console.log(`🎲 Bloco ${block}`);
-    }
 
-        //rolar os dados
+         //rolar os dados
 
         let diceResult1 = await rollDice();
         let diceResult2 = await rollDice();
@@ -78,11 +77,23 @@ async function playRaceEngine(character1, character2) {
         if (block === "CONFRONTO") {
             let powerResult1 = diceResult1 + character1.poder;
             let powerResult2 = diceResult2 + character1.poder;
-
-
-
-            
         }
+        //verificar vencedor
+        if (TotalTestSkill1 > TotalTestSkill2) {
+            console.log(`🏆 ${character1.nome} marcou um ponto!`);
+            character1.pontos += 1;
+        } else if (TotalTestSkill2 > TotalTestSkill1) {
+            console.log(`🏆 ${character2.nome} marcou um ponto!`);
+            character2.pontos += 1;
+        } else {
+            console.log("🤝 Empate no round!");
+        }
+
+
+        console.log("---------------------------------------------------------");
+    }
+
+       
 
 }
 (async function main(){
